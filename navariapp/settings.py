@@ -26,19 +26,21 @@ SECRET_KEY = 'django-insecure-_an8yz-!!3owa6w5tsxa7p^d!349=1_r%y*kh+jn95fx+m7afo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['navariapp.herokuapp.com']
+# ALLOWED_HOSTS = ['navariapp.herokuapp.com']
+ALLOWED_HOSTS = []
+
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'mpesa_app.apps.MpesaAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mpesaApp',
 ]
 
 MIDDLEWARE = [
@@ -84,14 +86,24 @@ WSGI_APPLICATION = 'navariapp.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'Database': 'd600ggrf42diih',
+#         'User': 'postgres',
+#         'Password': 'nkubitu',
+#         'Host': 'localhost',
+#         'Port': '5432',
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'Database': 'd600ggrf42diih',
-        'User': 'bbaajzwlutmzze',
-        'Password': '9ae2647b9871302bb9fde2ae6ae3985878e8b4137e0d469a26616fbd661f0758',
-        'Host': 'ec2-35-174-35-242.compute-1.amazonaws.com',
-        'Port': '5432',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd600ggrf42diih',
+        'USER': 'postgres',
+        'PASSWORD': 'nkubitu',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
@@ -151,6 +163,5 @@ STATICFILES_DIRS = (
 #  Add configuration for static files storage using whitenoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-import dj_database_url
-prod_db  =  dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(prod_db)
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)

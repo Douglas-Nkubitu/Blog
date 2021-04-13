@@ -30,7 +30,7 @@ def lipa_na_mpesa_online(request):
         "PartyA": 254702822379,  # replace with your phone number to get stk push
         "PartyB": LipanaMpesaPpassword.Business_short_code,
         "PhoneNumber": 254702822379,  # replace with your phone number to get stk push
-        "CallBackURL": "https://sandbox.safaricom.co.ke/mpesa/",
+        "CallBackURL": "https://navariapp.herokuapp.com/c2b/register/",
         "AccountReference": "Navari Limited",
         "TransactionDesc": "Testing stk push"
     }

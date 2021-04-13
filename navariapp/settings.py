@@ -87,11 +87,11 @@ WSGI_APPLICATION = 'navariapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd600ggrf42diih',
-        'USER': 'bbaajzwlutmzze',
-        'PASSWORD': '9ae2647b9871302bb9fde2ae6ae3985878e8b4137e0d469a26616fbd661f0758',
-        'HOST': 'ec2-35-174-35-242.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'Database': 'd600ggrf42diih',
+        'User': 'bbaajzwlutmzze',
+        'Password': '9ae2647b9871302bb9fde2ae6ae3985878e8b4137e0d469a26616fbd661f0758',
+        'Host': 'ec2-35-174-35-242.compute-1.amazonaws.com',
+        'Port': '5432',
     }
 }
 

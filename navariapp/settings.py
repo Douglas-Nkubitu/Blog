@@ -34,11 +34,14 @@ ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1','navariapp.herokuapp.com']
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'crispy_forms',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mpesaApp',
+    'mpesaApp.apps.MpesaappConfig',
+    'users.apps.UsersConfig'
+
 ]
 
 MIDDLEWARE = [
@@ -145,6 +148,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'mpesaApp-home'
+LOGIN_URL ='login'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

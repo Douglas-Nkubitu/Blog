@@ -8,6 +8,9 @@ from .views import (
     UserPostListView
 )
 from . import views
+from django.urls import path, include
+from .views import *
+
 
 urlpatterns = [
     path('', PostListView.as_view(), name='mpesaApp-home'),
@@ -19,15 +22,6 @@ urlpatterns = [
     path('about/', views.about, name='mpesaApp-about'),
 
 
-
-
-
-    path('access/token', views.getAccessToken, name='get_mpesa_access_token'),
-    path('online/lipa', views.lipa_na_mpesa_online, name='lipa_na_mpesa'),
-
-    # register, confirmation, validation and callback urls
-    path('c2b/register', views.register_urls, name="register_mpesa_validation"),
-    path('c2b/confirmation', views.confirmation, name="confirmation"),
-    path('c2b/validation', views.validation, name="validation"),
-    path('c2b/callback', views.call_back, name="call_back"),
+    path('api/fetch_payments',fetch_payments,name='fetch_payments'),
+    path('lipa_na_mpesa',lipa_na_mpesa,name='lipa_na_mpesa'),
 ]

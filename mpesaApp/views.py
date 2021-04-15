@@ -88,14 +88,13 @@ def about(request):
 def lipa_na_mpesa(request):
     try:
         req = json.loads(request.body.decode("utf-8"))
-        payment = Mpesa_Payments(
-            MerchantRequestID = req['Body']['stkCallback']['MerchantRequestID'],
-            CheckoutRequestID = req['Body']['stkCallback']['CheckoutRequestID'],
-            Amount = req['Body']['stkCallback']['CallbackMetadata']['Item'][0]['Value'],
-            MpesaReceiptNumber = req['Body']['stkCallback']['CallbackMetadata']['Item'][1]['Value'],
-            TransactionDate = req['Body']['stkCallback']['CallbackMetadata']['Item'][3]['Value'],
-            PhoneNumber = req['Body']['stkCallback']['CallbackMetadata']['Item'][4]['Value'],
-        )
+        payment = Mpesa_Payments()
+        payment.MerchantRequestID = req['Body']['stkCallback']['MerchantRequestID']
+        payment.CheckoutRequestID = req['Body']['stkCallback']['CheckoutRequestID']
+        payment.Amount = req['Body']['stkCallback']['CallbackMetadata']['Item'][0]['Value']
+        payment.MpesaReceiptNumber = req['Body']['stkCallback']['CallbackMetadata']['Item'][1]['Value']
+        payment.TransactionDate = req['Body']['stkCallback']['CallbackMetadata']['Item'][3]['Value']
+        payment.PhoneNumber = req['Body']['stkCallback']['CallbackMetadata']['Item'][4]['Value']
         payment.save()
     except:
         pass

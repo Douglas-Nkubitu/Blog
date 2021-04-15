@@ -162,7 +162,7 @@ LOGIN_REDIRECT_URL = 'mpesaApp-home'
 LOGIN_URL ='login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.mail.upcountrysuccess.org'
 EMAIL_PORT = 587
 EMAIL_USE_TSL = True
 EMAIL_HOST_USER = config.get('EMAIL_USER')

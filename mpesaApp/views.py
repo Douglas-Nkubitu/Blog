@@ -15,7 +15,7 @@ from requests.auth import HTTPBasicAuth
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
-from .models import MpesaPayment
+from .models import Mpesa_Payments
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 def home(request):
@@ -88,7 +88,7 @@ def about(request):
 def lipa_na_mpesa(request):
     try:
         req = json.loads(request.body.decode("utf-8"))
-        payment = MpesaPayment(
+        payment = Mpesa_Payments(
             MerchantRequestID = req['Body']['stkCallback']['MerchantRequestID'],
             CheckoutRequestID = req['Body']['stkCallback']['CheckoutRequestID'],
             Amount = req['Body']['stkCallback']['CallbackMetadata']['Item'][0]['Value'],
@@ -102,7 +102,7 @@ def lipa_na_mpesa(request):
     return JsonResponse({})
 
 def fetch_payments(request):
-    payment_list = list(MpesaPayment.objects.values('id','MerchantRequestID','CheckoutRequestID','Amount','MpesaReceiptNumber','TransactionDate','PhoneNumber','Status'))
+    payment_list = list(Mpesa_Payments.objects.values('id','MerchantRequestID','CheckoutRequestID','Amount','MpesaReceiptNumber','TransactionDate','PhoneNumber','Status'))
     return JsonResponse(payment_list,safe=False)
 
 

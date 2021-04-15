@@ -19,7 +19,7 @@ class Post(models.Model):
 
 
 # M-pesa Payment models
-class MpesaPayment(models.Model):
+class Mpesa_Payments(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     MerchantRequestID = models.CharField(max_length=100,null=True, blank=True)
     CheckoutRequestID = models.CharField(max_length=100,null=True, blank=True)

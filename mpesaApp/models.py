@@ -20,14 +20,14 @@ class Post(models.Model):
 
 # M-pesa Payment models
 class MpesaPayment(models.Model):
-        created_at = models.DateTimeField(default=timezone.now)
-        MerchantRequestID = models.CharField(max_length=100,null=True, blank=True)
-        CheckoutRequestID = models.CharField(max_length=100,null=True, blank=True)
-        Amount = models.CharField(max_length=100,null=True, blank=True)
-        MpesaReceiptNumber = models.CharField(max_length=100,null=True, blank=True)
-        TransactionDate = models.CharField(max_length=100,null=True, blank=True)
-        PhoneNumber = models.CharField(max_length=100,null=True, blank=True)
-        Status = models.IntegerField(default=0)
+    created_at = models.DateTimeField(default=timezone.now)
+    MerchantRequestID = models.CharField(max_length=100,null=True, blank=True)
+    CheckoutRequestID = models.CharField(max_length=100,null=True, blank=True)
+    Amount = models.CharField(max_length=100,null=True, blank=True)
+    MpesaReceiptNumber = models.CharField(max_length=100,null=True, blank=True)
+    TransactionDate = models.CharField(max_length=100,null=True, blank=True)
+    PhoneNumber = models.CharField(max_length=100,null=True, blank=True)
+    Status = models.IntegerField(default=0)
 
-        def __str__(self):
-            return str(self.PhoneNumber)
+    def __str__(self):
+        return str(self.PhoneNumber)

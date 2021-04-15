@@ -93,9 +93,10 @@ def lipa_na_mpesa(request):
         payment.CheckoutRequestID = req['Body']['stkCallback']['CheckoutRequestID']
         payment.Amount = req['Body']['stkCallback']['CallbackMetadata']['Item'][0]['Value']
         payment.MpesaReceiptNumber = req['Body']['stkCallback']['CallbackMetadata']['Item'][1]['Value']
-        payment.TransactionDate = req['Body']['stkCallback']['CallbackMetadata']['Item'][3]['Value']
-        payment.PhoneNumber = req['Body']['stkCallback']['CallbackMetadata']['Item'][4]['Value']
+        payment.TransactionDate = req['Body']['stkCallback']['CallbackMetadata']['Item'][2]['Value']
+        payment.PhoneNumber = req['Body']['stkCallback']['CallbackMetadata']['Item'][3]['Value']
         payment.save()
+
     except:
         pass
     return JsonResponse({})

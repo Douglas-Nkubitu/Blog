@@ -104,8 +104,7 @@ def lipa_na_mpesa(request):
 def fetch_payments(request):
     payment_list = list(MpesaPayment.objects.values(
         'id','MerchantRequestID','CheckoutRequestID','Amount',
-        'MpesaReceiptNumber','TransactionDate','PhoneNumber',
-        'Status'))
+        'MpesaReceiptNumber','TransactionDate','PhoneNumber', 'Status'))
     return JsonResponse(payment_list,safe=False)
 
 

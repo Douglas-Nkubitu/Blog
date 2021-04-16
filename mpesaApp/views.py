@@ -121,7 +121,7 @@ def fetch_payments(request):
     payment_list = list(Mpesa_Payments.objects.values('id','MerchantRequestID','CheckoutRequestID','Amount','MpesaReceiptNumber','TransactionDate','PhoneNumber','Status'))
     return JsonResponse(payment_list,safe=False)
 
-def Mpesa_Payments(request):
+def MpesaPayments(request):
 
     if request.method == 'POST':
         form =MpesaForm(request.POST)

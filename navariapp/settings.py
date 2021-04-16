@@ -104,7 +104,7 @@ WSGI_APPLICATION = 'navariapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd600ggrf42diih',
+        'NAME': 'douglas',
         'USER': 'postgres',
         'PASSWORD': 'nkubitu',
         'HOST': '127.0.0.1',

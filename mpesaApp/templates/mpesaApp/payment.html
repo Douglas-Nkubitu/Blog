@@ -1,0 +1,39 @@
+{% extends "mpesaApp/baseall.html" %}
+{% block content %}
+    {% for mpesa_payments in payments %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="portal">
+                <div class="portal-info">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                            <th>ID</th> 
+                            <th>MerchantRequestID</th>
+                            <th>CheckoutRequestID</th>
+                            <th>Amount</th>
+                            <th>MpesaReceiptNumber</th>
+                            <th>TransactionDate</th>
+                            <th>PhoneNumber</th>
+                            <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>	
+                            <tr>
+                                <td class="text-left">{{ mpesa_payments.id }}</td>							
+                                <td class="text-left">{{ mpesa_payments.MerchantRequestID }}</td>
+                                <td class="text-left">{{ mpesa_payments.CheckoutRequestID }}</td>	
+                                <td class="text-left">{{ mpesa_payments.Amount }}</td>	
+                                <td class="text-left">{{ mpesa_payments.MpesaReceiptNumber }}</td>	
+                                <td class="text-left">{{ mpesa_payments.TransactionDate }}</td>	
+                                <td class="text-left">{{ mpesa_payments.PhoneNumber }}</td>	
+                                <td class="text-left">{{ mpesa_payments.Status }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>    
+            </div>
+        </div>
+    </div>    
+    {% endfor %}
+{% endblock content %}

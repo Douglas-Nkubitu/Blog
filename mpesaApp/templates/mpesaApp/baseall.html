@@ -48,7 +48,7 @@
       </header>
       <main role="main" class="container">
         <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-15">
             {% if messages %}
               {% for message in messages %}
               <div class="alert alert-{{ message.tags }}">
@@ -57,20 +57,6 @@
               {% endfor %}
             {% endif%}
             {% block content %}{% endblock %}
-          </div>
-          <div class="col-md-4">
-            <div class="content-section">
-              <h3> WHO ARE WE?</h3>
-              <p class='text-muted'>Navari Ltd is one of Africa’s fastest growing IT company based in Kenya with a focus on solutions 
-                  for Small and mid-sized enterprises.
-                <ul class="list-group">
-                  <li class="list-group-item list-group-item-light">Enterprise & Cloud Applications</li>
-                  <li class="list-group-item list-group-item-light">Customer Relationship Management</li>
-                  <li class="list-group-item list-group-item-light">Education</li>
-                  <li class="list-group-item list-group-item-light">etc</li>
-                </ul>
-              </p>
-            </div>
           </div>
         </div>
       </main>

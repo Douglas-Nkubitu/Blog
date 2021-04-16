@@ -82,6 +82,19 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 def about(request):
     return render(request,'mpesaApp/about.html', {'title': 'About'} )
 
+def payment(request):
+    context = {
+        'payments': Mpesa_Payments.objects.all()
+    }
+    return render(request,'mpesaApp/payment.html', context )
+
+class Mpesa_PaymentsListView(ListView):
+    model = Mpesa_Payments
+    template_name = 'mpesaApp/payment.html'
+    context_object_name ='payments'
+    ordering = ['-created_at']
+
+
 
 @csrf_exempt
 @require_http_methods(["POST"])

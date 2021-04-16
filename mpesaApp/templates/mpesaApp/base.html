@@ -28,8 +28,8 @@
             <div class="collapse navbar-collapse" id="navbarToggle">
               <div class="navbar-nav mr-auto">
                 <a class="nav-item nav-link" href="{% url 'mpesaApp-home'%} ">Home</a>
-                <a class="nav-item nav-link" href="{% url 'mpesaApp-about'%}">About</a>
-                <a class="nav-item nav-link" href="{% url 'mpesaApp-payment'%}">Mpesa Payment</a>
+                <a class="nav-item nav-link" href="{% url 'mpesaApp-about'%}">Make Payments</a>
+                <a class="nav-item nav-link" href="{% url 'mpesaApp-payment'%}">View Payment</a>
               </div>
               <!-- Navbar Right Side -->
               <div class="navbar-nav">
@@ -64,9 +64,9 @@
               <p class='text-muted'>Navari Ltd is one of Africa’s fastest growing IT company based in Kenya with a focus on solutions 
                   for Small and mid-sized enterprises.
                 <ul class="list-group">
-                  <li class="list-group-item list-group-item-light">Enterprise & Cloud Applications</li>
-                  <li class="list-group-item list-group-item-light">Customer Relationship Management</li>
-                  <li class="list-group-item list-group-item-light">Education</li>
+                  <li class="list-group-item list-group-item-light" href="{% url 'mpesaApp-home'%} ">Enterprise & Cloud Applications</li>
+                  <li class="list-group-item list-group-item-light" href="{% url 'mpesaApp-about'%}">Customer Relationship Management</li>
+                  <li class="list-group-item list-group-item-light" href="{% url 'mpesaApp-payment'%}">Education</li>
                   <li class="list-group-item list-group-item-light">etc</li>
                 </ul>
               </p>

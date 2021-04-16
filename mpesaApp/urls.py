@@ -21,10 +21,8 @@ urlpatterns = [
     path('post/new/', PostCreateView.as_view(), name='post-create'),
     path('post/<int:pk>/update/', PostUpdateview.as_view(), name='post-update'),
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
-    path('about/', views.about, name='mpesaApp-about'),
-    path('payment/', Mpesa_PaymentsListView.as_view(), name='mpesaApp-payment'),
+    path('make_payment/', Mpesa_Payments, name='mpesaApp-about'),
+    path('view_payment/', Mpesa_PaymentsListView.as_view(), name='mpesaApp-payment'),
 
-
-    path('api/fetch_payments/',fetch_payments,name='fetch_payments'),
     path('lipa_na_mpesa',lipa_na_mpesa,name='lipa_na_mpesa'),
 ]

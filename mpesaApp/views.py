@@ -8,6 +8,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
     )
+from requests.models import Request
 from .models import Post
 from django.http import HttpResponse, JsonResponse
 import requests
@@ -17,6 +18,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from .models import Mpesa_Payments
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from datetime import datetime
+import base64
+from requests.api import request
+from .forms import MpesaForm
+
+
 
 def home(request):
     context = {
@@ -78,9 +85,6 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
-    
-def about(request):
-    return render(request,'mpesaApp/about.html', {'title': 'About'} )
 
 def payment(request):
     context = {
@@ -94,7 +98,75 @@ class Mpesa_PaymentsListView(ListView):
     context_object_name ='payments'
     ordering = ['-created_at']
 
+def getAccessToken():
+        consumer_key = 'cyBzERd2PMFDXlA6tMzcWbGwiCBYSMtn'
+        consumer_secret = 'Giq642DlHfpmum36'
+        api_URL = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'      
+        r = requests.get(api_URL, auth=HTTPBasicAuth(consumer_key, consumer_secret))
+        return r.json()['access_token']
 
+
+lipa_time = datetime.now().strftime('%Y%m%d%H%M%S')
+Business_short_code = "174379"
+passkey = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'
+data_to_encode = Business_short_code + passkey + lipa_time
+online_password = base64.b64encode(data_to_encode.encode())
+decode_password = online_password.decode('utf-8')
+
+
+def lipa_na_mpesa_online(Amount,PhoneNumber):
+    access_token = getAccessToken()
+    api_url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
+    headers = { "Authorization": "Bearer "+str(access_token) ,"Content-Type": "application/json" }
+    request = {
+        "BusinessShortCode": Business_short_code,
+        "Password": decode_password,
+        "Timestamp":lipa_time,
+        "TransactionType": "CustomerPayBillOnline",
+        "Amount": Amount,
+        "PartyA": PhoneNumber,  # replace with your phone number to get stk push
+        "PartyB": Business_short_code,
+        "PhoneNumber": PhoneNumber,  # replace with your phone number to get stk push
+        "CallBackURL": "https://navariapp.herokuapp.com/lipa_na_mpesa",
+        "AccountReference": "Navari Limited",
+        "TransactionDesc": "Testing stk push"
+    }
+
+    response = requests.post(api_url, json=request, headers=headers)
+    print(response.text)
+
+    # check response code for errors and return response
+    if response.status_code > 299:
+        return{
+            "success": False,
+            "message":"Sorry, something went wrong please try again later."
+        },400
+
+    # CheckoutRequestID = response.text['CheckoutRequestID']
+
+    # Do something in your database e.g store the transaction or as an order
+    # make sure to store the CheckoutRequestID to identify the tranaction in 
+    # your CallBackURL endpoint.
+
+    # return a response to your user
+    return {
+        "data": json.loads(response.text)
+    },200
+
+
+def Mpesa_Payments(request):
+
+    if request.method == 'POST':
+        form =MpesaForm(request.POST)
+        if form.is_valid():
+
+            PhoneNumber = form.cleaned_data['PhoneNumber']
+            Amount = form.cleaned_data['Amount']
+
+            lipa_na_mpesa_online(Amount,PhoneNumber)
+
+    form = MpesaForm()         
+    return render (request, 'mpesaApp/mpesa_payments_form.html', {'form':form } )
 
 @csrf_exempt
 @require_http_methods(["POST"])
@@ -109,13 +181,10 @@ def lipa_na_mpesa(request):
         payment.TransactionDate = req['Body']['stkCallback']['CallbackMetadata']['Item'][3]['Value']
         payment.PhoneNumber = req['Body']['stkCallback']['CallbackMetadata']['Item'][4]['Value']
         payment.save()
-        
+      
     except:
         pass
     return JsonResponse({})
 
-def fetch_payments(request):
-    payment_list = list(Mpesa_Payments.objects.values('id','MerchantRequestID','CheckoutRequestID','Amount','MpesaReceiptNumber','TransactionDate','PhoneNumber','Status'))
-    return JsonResponse(payment_list,safe=False)
 
 

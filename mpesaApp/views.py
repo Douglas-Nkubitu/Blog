@@ -93,16 +93,17 @@ def lipa_na_mpesa(request):
         payment.CheckoutRequestID = req['Body']['stkCallback']['CheckoutRequestID']
         payment.Amount = req['Body']['stkCallback']['CallbackMetadata']['Item'][0]['Value']
         payment.MpesaReceiptNumber = req['Body']['stkCallback']['CallbackMetadata']['Item'][1]['Value']
-        payment.TransactionDate = req['Body']['stkCallback']['CallbackMetadata']['Item'][2]['Value']
-        payment.PhoneNumber = req['Body']['stkCallback']['CallbackMetadata']['Item'][3]['Value']
+        payment.TransactionDate = req['Body']['stkCallback']['CallbackMetadata']['Item'][3]['Value']
+        payment.PhoneNumber = req['Body']['stkCallback']['CallbackMetadata']['Item'][4]['Value']
         payment.save()
-
+        
     except:
         pass
     return JsonResponse({})
 
 def fetch_payments(request):
-    payment_list = list(Mpesa_Payments.objects.values('id','MerchantRequestID','CheckoutRequestID','Amount','MpesaReceiptNumber','TransactionDate','PhoneNumber','Status'))
+    payment_list = list(Mpesa_Payments.objects.all('id','MerchantRequestID','CheckoutRequestID','Amount','MpesaReceiptNumber',
+    'TransactionDate','PhoneNumber','Status'))
     return JsonResponse(payment_list,safe=False)
 
 

@@ -40,7 +40,7 @@ def lipa_na_mpesa_online(request):
         "PartyA": 254702822379,  # replace with your phone number to get stk push
         "PartyB": Business_short_code,
         "PhoneNumber": 254702822379,  # replace with your phone number to get stk push
-        "CallBackURL": "https://navariapp.herokuapp.com/lmp",
+        "CallBackURL": "https://navariapp.herokuapp.com/lipa_na_mpesa",
         "AccountReference": "Navari Limited",
         "TransactionDesc": "Testing stk push"
     }

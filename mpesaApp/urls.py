@@ -24,5 +24,5 @@ urlpatterns = [
 
 
     path('api/fetch_payments/',fetch_payments,name='fetch_payments'),
-    path('lmp',lmp,name='lmp'),
+    path('lipa_na_mpesa',lipa_na_mpesa,name='lipa_na_mpesa'),
 ]

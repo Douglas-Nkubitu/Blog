@@ -85,7 +85,7 @@ def about(request):
 
 @csrf_exempt
 @require_http_methods(["POST"])
-def lipa_na_mpesa(request):
+def lmp(request):
     try:
         req = json.loads(request.body.decode("utf-8"))
         payment = Mpesa_Payments()

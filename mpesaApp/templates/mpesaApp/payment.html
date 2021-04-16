@@ -1,6 +1,6 @@
 {% extends "mpesaApp/baseall.html" %}
 {% block content %}
-    {% for mpesa_payments in payments %}
+    
     <div class="row">
         <div class="col-sm-12">
             <div class="portal">
@@ -19,6 +19,7 @@
                             </tr>
                         </thead>
                         <tbody>	
+                            {% for mpesa_payments in payments %}
                             <tr>
                                 <td class="text-left">{{ mpesa_payments.id }}</td>							
                                 <td class="text-left">{{ mpesa_payments.MerchantRequestID }}</td>
@@ -29,11 +30,11 @@
                                 <td class="text-left">{{ mpesa_payments.PhoneNumber }}</td>	
                                 <td class="text-left">{{ mpesa_payments.Status }}</td>
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>    
             </div>
         </div>
     </div>    
-    {% endfor %}
 {% endblock content %}

@@ -23,6 +23,6 @@ urlpatterns = [
     path('about/', views.about, name='mpesaApp-about'),
 
 
-    path('api/fetch_payments/',fetch_payments,name='fetch_payments'),
-    path('lipa_na_mpesa/',lipa_na_mpesa,name='lipa_na_mpesa'),
+    path('api/fetch_payments',fetch_payments,name='fetch_payments'),
+    path('lipa_na_mpesa',lipa_na_mpesa,name='lipa_na_mpesa'),
 ]

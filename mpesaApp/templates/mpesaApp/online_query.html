@@ -9,7 +9,7 @@
                 {{ form|crispy }}         
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info"  type="submit">Query</button>
+                <button class="btn btn-primary"  type="submit">Query</button>
             </div>
         </form>
     </div>
@@ -47,6 +47,12 @@
                     </table>
                 </div>    
             </div>
-        </div>
+        </div>       
     </div> 
+    <form action="{% url 'mpesaApp-update' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group row justify-content-center">
+            <button class="btn btn-primary" type="submit">Confrim Payment</button>
+        </div>
+    </form>
 {% endblock content %}

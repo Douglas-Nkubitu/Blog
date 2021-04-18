@@ -24,6 +24,7 @@ urlpatterns = [
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
     path('make_payment/', MpesaPayments, name='mpesaApp-about'),
     path('view_payment/', Mpesa_PaymentsListView.as_view(), name='mpesaApp-payment'),
+    path('update_payment/', update_status, name='mpesaApp-update'),
     path('online_query/', Online_QueryListView.as_view(), name='mpesaApp-query'),
 
     path('api/fetch_payments/',fetch_payments,name='fetch_payments'),

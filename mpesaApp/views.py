@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.models import User
 from django.views.generic import (
     ListView,
@@ -150,8 +150,10 @@ class Online_QueryListView(ListView):
     
         return context
 
-    def update_status(self):
-        Status = Mpesa_Payments.objects.get(Status=0)
-        if Status:
-            Status.value = 1 
-            Status.save()
+@require_http_methods(['POST'])
+def update_status(self, *args, **kwargs):
+        update = Mpesa_Payments.objects.get(Status=0)
+        if update:
+            update.value = 1 
+            update.save()
+        super(Mpesa_Payments, self).update_status(*args, **kwargs)

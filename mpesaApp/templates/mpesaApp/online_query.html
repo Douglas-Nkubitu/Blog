@@ -1,6 +1,18 @@
 {% extends "mpesaApp/baseall.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
-    
+    <div class="content-section">
+        <form method="GET">
+            {% csrf_token %}         
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Query Payment and Confirm Payment</legend>
+                {{ form|crispy }}         
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info"  type="submit">Query</button>
+            </div>
+        </form>
+    </div>
     <div class="row">
         <div class="col-sm-12">
             <div class="portal">
@@ -19,7 +31,7 @@
                             </tr>
                         </thead>
                         <tbody>	
-                            {% for mpesa_payments in payments %}
+                            {% for mpesa_payments in query %}
                             <tr>
                                 <td class="text-left">{{ mpesa_payments.id }}</td>							
                                 <td class="text-left">{{ mpesa_payments.MerchantRequestID }}</td>
@@ -36,5 +48,5 @@
                 </div>    
             </div>
         </div>
-    </div>    
+    </div> 
 {% endblock content %}

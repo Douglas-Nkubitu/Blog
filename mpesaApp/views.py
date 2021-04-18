@@ -1,4 +1,3 @@
-from typing import ContextManager
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.models import User
 from django.views.generic import (
@@ -8,23 +7,18 @@ from django.views.generic import (
     UpdateView,
     DeleteView
     )
-from requests.models import Request
 from .models import Post
-from django.http import HttpResponse, JsonResponse
-import requests
-from requests.auth import HTTPBasicAuth
+from django.http import JsonResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from .models import Mpesa_Payments
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from datetime import datetime
-import base64
 from requests.api import request
-from .forms import MpesaForm
+from .forms import MpesaForm, QueryForm
 from .online import lipa_na_mpesa_online
-
-
+from django.db.models import Q
+from django.utils.functional import cached_property
 
 def home(request):
     context = {
@@ -38,7 +32,6 @@ class PostListView(ListView):
     context_object_name ='posts'
     ordering = ['-date_posted']
     paginate_by = 5
-
 
 class UserPostListView(ListView):
     model = Post
@@ -134,3 +127,31 @@ def MpesaPayments(request):
 
     form = MpesaForm()         
     return render (request, 'mpesaApp/mpesa_payments_form.html', {'form':form } )
+
+class Online_QueryListView(ListView):
+    model = Mpesa_Payments
+    template_name = 'mpesaApp/online_query.html'
+    context_object_name ='query'
+
+
+    def get_queryset(self):       
+        query = self.request.GET.get('Query')        
+        if query:                            
+                return Mpesa_Payments.objects.filter(
+                        Q(PhoneNumber__exact=query) |
+                        Q(MpesaReceiptNumber__exact=query),Status=0
+                    )       
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['form'] = QueryForm(initial={
+            'Query': self.request.GET.get('Query', ''),
+        })
+    
+        return context
+
+    def update_status(self):
+        Status = Mpesa_Payments.objects.get(Status=0)
+        if Status:
+            Status.value = 1 
+            Status.save()

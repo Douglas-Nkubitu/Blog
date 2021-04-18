@@ -6,7 +6,8 @@ from .views import (
     PostUpdateview,
     PostDeleteView,
     UserPostListView,
-    Mpesa_PaymentsListView
+    Mpesa_PaymentsListView,
+    Online_QueryListView
 )
 from . import views
 from django.urls import path, include
@@ -23,6 +24,7 @@ urlpatterns = [
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
     path('make_payment/', MpesaPayments, name='mpesaApp-about'),
     path('view_payment/', Mpesa_PaymentsListView.as_view(), name='mpesaApp-payment'),
+    path('online_query/', Online_QueryListView.as_view(), name='mpesaApp-query'),
 
     path('api/fetch_payments/',fetch_payments,name='fetch_payments'),
     path('lipa_na_mpesa',lipa_na_mpesa,name='lipa_na_mpesa'),

@@ -5,5 +5,5 @@ class MpesaForm(forms.Form):
     Amount = forms.IntegerField(label='Amount')
 
 class QueryForm(forms.Form):
-    Query = forms.CharField(label='Enter to Query by Phone Number,Transaction ID')
+    Query = forms.CharField(label='Enter Phone Number or Transaction ID to Query payments')
 
